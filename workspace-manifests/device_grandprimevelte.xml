@@ -10,10 +10,13 @@
       lineage-14.1 era) — see docs/decision-log.md.
     -->
 
-    <!-- Device tree (grandprimevelte era-upgrade base, l14 unified tree) -->
+    <!-- Device tree: OUR l13-based working tree, held in porting/device-tree.git
+         (bare repo inside the project; era upgrades land as commits there,
+         then reach the workspace through repo sync). Replaces the notnoel
+         l14 checkout (coreprime-drifted — DEC-019). -->
+    <remote name="localport" fetch="file:///home/anvil/Projects/axpos-grandprimevelte/porting/" />
     <project path="device/samsung/grandprimevelte"
-             name="notnoelchannel2/android_device_samsung_grandprimevelte"
-             remote="github" revision="e3fac8f58502b0a5250890fc2f86282e18c59630" />
+             name="device-tree.git" remote="localport" revision="main" />
 
     <!-- Marvell PXA1908 SoC common tree -->
     <project path="device/samsung/pxa1908-common"
