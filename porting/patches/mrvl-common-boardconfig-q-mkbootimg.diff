@@ -1,0 +1,14 @@
+diff --git a/BoardConfigCommon.mk b/BoardConfigCommon.mk
+index 837aae0..8eb3df0 100644
+--- a/BoardConfigCommon.mk
++++ b/BoardConfigCommon.mk
+@@ -37,7 +37,8 @@ MRVL_ION := true
+ BOARD_HAS_DOWNLOAD_MODE := true
+ 
+ # Kernel
+-BOARD_CUSTOM_MKBOOTIMG := mkbootimg
++# era (Q): bare module name is PHONY in kati; point at the absolute standard host tool path (Q-era studio: AOSP mkbootimg binary; bootimage glue uses MKBOOTIMG_PXA/mkbootimg_mrvl directly, this var only feeds AOSP helper rules like boot-debug)
++BOARD_CUSTOM_MKBOOTIMG := $(HOST_OUT_EXECUTABLES)/mkbootimg$(HOST_EXECUTABLE_SUFFIX)
+ 
+ # MRVL
+ BOARD_USES_MRVL_HARDWARE := true

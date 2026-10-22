@@ -26,4 +26,11 @@ if [ -d "$W/hardware/lineage/interfaces/cryptfshw" ]; then
   rm -rf "$W/hardware/lineage/interfaces/cryptfshw"
   echo "removed: hardware/lineage/interfaces/cryptfshw"
 fi
+# 4) device/samsung/mrvl-common: era-fix in BoardConfigCommon.mk
+#    (BOARD_CUSTOM_MKBOOTIMG bare "mkbootimg" name → Q kati phony hard-fail;
+#    pinned tree, not a promoted repo, so workspace patch)
+if git -C "$W/device/samsung/mrvl-common" diff --quiet 2>/dev/null; then
+  git -C "$W/device/samsung/mrvl-common" apply "$P/mrvl-common-boardconfig-q-mkbootimg.diff"
+  echo "applied: mrvl-common boardconfig"
+fi
 echo done
