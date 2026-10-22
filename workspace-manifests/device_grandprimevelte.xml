@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+
+    <!--
+      Samsung Galaxy Grand Prime VE LTE (SM-G531F, grandprimevelte)
+      Marvell PXA1908 personal port to AXP.OS (axp-a10 / LOS-17.1 base).
+
+      All five repos pinned to the exact SHAs cloned & inspected in
+      local upstream clones (community trees,
+      lineage-14.1 era) — see docs/decision-log.md.
+    -->
+
+    <!-- Device tree (grandprimevelte era-upgrade base, l14 unified tree) -->
+    <project path="device/samsung/grandprimevelte"
+             name="notnoelchannel2/android_device_samsung_grandprimevelte"
+             remote="github" revision="e3fac8f58502b0a5250890fc2f86282e18c59630" />
+
+    <!-- Marvell PXA1908 SoC common tree -->
+    <project path="device/samsung/pxa1908-common"
+             name="Nemirtingas/android_device_samsung_pxa1908-common"
+             remote="github" revision="e51c0acf4a93753f355726bbc89e497ea4fb2bee" />
+
+    <!-- Marvell modem/RIL common tree -->
+    <project path="device/samsung/mrvl-common"
+             name="Nemirtingas/android_device_samsung_mrvl-common"
+             remote="github" revision="c5bdd6aaeaf7bb3a693b0739fad44ed67381bea2" />
+
+    <!-- Marvell HAL glue (camera/RIL/WiFi shim headers etc.) -->
+    <project path="hardware/marvell/pxa1908"
+             name="Nemirtingas/android_hardware_marvell_pxa1908"
+             remote="github" revision="5906535422762fb5adb20c6ba00d047c61e557e8" />
+
+    <!-- Linux 3.14.27 kernel (stock-matching, armv7 32-bit) -->
+    <project path="kernel/samsung/grandprimevelte"
+             name="notnoelchannel2/android_kernel_samsung_grandprimevelte"
+             remote="github" revision="c66f3cd5159bc6da1b096127475744c966d3968e" />
+
+</manifest>

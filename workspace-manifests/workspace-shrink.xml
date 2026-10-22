@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+
+    <!--
+      Space-shrink overlay for OUR device build only (DEC-017).
+      Removes: Qualcomm opensource stack, NXP NFC stacks (pn5xx+sn100x share repo
+      names at different revisions — one remove covers both paths), j5y17lte-era
+      Samsung vendor blobs, private AXP repos (ssh-only, need AXP credentials +
+      git-lfs; our port self-extracts), and webview prebuilts for arches our
+      32-bit arm device never imports. Names validated against the project
+      universe; keep-set: vendor/axp, vendor/extendrom, vendor/lineage,
+      all tools/*, chromium-webview prebuilt arm.
+    -->
+
+    <!-- Qualcomm opensource extras — Qualcomm devices only -->
+    <remove-project name="LineageOS/android_vendor_qcom_opensource_audio" />
+    <remove-project name="LineageOS/android_vendor_qcom_opensource_bluetooth-commonsys-intf" />
+    <remove-project name="LineageOS/android_vendor_qcom_opensource_bluetooth_ext" />
+    <remove-project name="LineageOS/android_vendor_qcom_opensource_packages_apps_Bluetooth" />
+    <remove-project name="LineageOS/android_vendor_qcom_opensource_system_bt" />
+    <remove-project name="LineageOS/android_vendor_qcom_opensource_cryptfs_hw" />
+    <remove-project name="LineageOS/android_vendor_qcom_opensource_data-ipa-cfg-mgr" />
+    <remove-project name="LineageOS/android_vendor_qcom_opensource_dataservices" />
+    <remove-project name="LineageOS/android_vendor_qcom_opensource_fm-commonsys" />
+    <remove-project name="LineageOS/android_vendor_qcom_opensource_interfaces" />
+    <remove-project name="LineageOS/android_vendor_qcom_opensource_libfmjni" />
+    <remove-project name="LineageOS/android_vendor_qcom_opensource_power" />
+    <remove-project name="LineageOS/android_vendor_qcom_opensource_thermal-engine" />
+    <remove-project name="LineageOS/android_vendor_qcom_opensource_vibrator" />
+    <remove-project name="LineageOS/android_vendor_codeaurora_telephony" />
+
+    <!-- NXP NFC stacks — NXP-controller devices only (ours uses Marvell NFC HAL) -->
+    <remove-project name="LineageOS/android_vendor_nxp_opensource_external_libnfc-nci" />
+    <remove-project name="LineageOS/android_vendor_nxp_opensource_frameworks" />
+    <remove-project name="LineageOS/android_vendor_nxp_opensource_packages_apps_Nfc" />
+    <remove-project name="LineageOS/android_vendor_nxp_interfaces_opensource_nfc" />
+    <remove-project name="LineageOS/android_vendor_nxp_opensource_halimpl" />
+    <remove-project name="LineageOS/android_vendor_nxp_opensource_hidlimpl" />
+
+    <!-- j5y17lte-era Samsung vendor blobs — j5 (2017) device only -->
+    <remove-project name="vendor_samsung_j5y17lte" />
+    <remove-project name="vendor_samsung_universal7870-common" />
+
+    <!-- Private AXP repos — ssh-only remote, need AXP credentials + git-lfs;
+         our port self-extracts firmware, and versioning is maintainer meta -->
+    <remove-project name="vendor_firmware" />
+    <remove-project name="axp_versioning" />
+    <remove-project name="vendor_divested" />
+    <remove-project name="vendor_divested-carriersettings" />
+
+    <!-- Webview prebuilt arches we never import (device is 32-bit arm) -->
+    <remove-project name="LineageOS/android_external_chromium-webview_prebuilt_arm64" />
+    <remove-project name="LineageOS/android_external_chromium-webview_prebuilt_x86" />
+    <remove-project name="LineageOS/android_external_chromium-webview_prebuilt_x86_64" />
+
+</manifest>

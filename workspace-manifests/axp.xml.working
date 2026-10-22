@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+
+<!-- START OF REMOTE DEFINITIONS -->
+
+        <remote name="sfX" 
+              fetch="https://github.com/sfX-Android/" 
+              revision="axp-a10" />
+	
+        <remote name="axp.os" 
+              fetch="https://github.com/AXP-OS/"
+              revision="axp-a10" />
+
+	<remote name="aos-mirror" 
+              fetch="https://codeberg.org/AXP-OS"
+              revision="axp-a10" />
+	
+	<remote name="axp.os_kernel" 
+              fetch="https://github.com/AXP-OS/"
+              revision="axp-a10" />
+	
+       <remote name="los" 
+              fetch="https://github.com/LineageOS" 
+              revision="lineage-17.1" />
+	
+       <remote name="gos" 
+              fetch="https://github.com/GrapheneOS" 
+              revision="10" />
+	
+       <remote name="muppets" 
+              fetch="https://github.com/TheMuppets" 
+              revision="lineage-17.1" />
+  
+        <!-- FIRMWARE related repo, not shared public and even not on github bc they want money for LFS  -->
+        <remote name="axp.os-private" 
+              fetch="ssh://git@code.binbash.rocks:22443/AXP.OS"
+              revision="axp-a10" />
+
+        <!-- Wireguard module -->
+        <remote name="zx2c4" 
+              fetch="https://git.zx2c4.com/" 
+              revision="master" />
+ 
+        <!-- from DOS -->  
+        <remote name="gitlab" fetch="https://gitlab.com/" />
+        <remote name="angry" fetch="https://gitea.angry.im/" />
+<!-- END OF REMOTE DEFINITIONS -->
+
+<!-- START OF UNNECESSARY REPO REMOVAL -->
+	<remove-project name="device/generic/goldfish-opengl" />
+	<remove-project name="device/generic/mini-emulator-arm64" />
+	<remove-project name="device/generic/mini-emulator-armv7-a-neon" />
+	<remove-project name="device/generic/mini-emulator-x86" />
+	<remove-project name="device/generic/mini-emulator-x86_64" />
+	<remove-project name="device/generic/qemu" />
+	<remove-project name="LineageOS/android_device_generic_goldfish" />
+	<remove-project name="LineageOS/android_external_ant-wireless_ant_native" optional="true" />
+	<remove-project name="LineageOS/android_external_ant-wireless_ant_service" optional="true" />
+	<remove-project name="LineageOS/android_external_bash" optional="true" />
+	<remove-project name="LineageOS/android_external_htop" optional="true" />
+	<remove-project name="LineageOS/android_external_nano" optional="true" />
+	<remove-project name="LineageOS/android_external_openssh" />
+	<remove-project name="LineageOS/android_external_p7zip" optional="true" />
+	<remove-project name="LineageOS/android_external_rsync" optional="true" />
+	<remove-project name="LineageOS/android_external_unrar" optional="true" />
+	<remove-project name="LineageOS/android_packages_apps_Eleven" optional="true" />
+	<remove-project name="LineageOS/android_packages_apps_Jelly" optional="true" />
+	<!--<remove-project name="LineageOS/android_packages_apps_Stk" />-->
+	<remove-project name="LineageOS/android_packages_apps_Terminal" />
+	<remove-project name="LineageOS/android_packages_providers_PartnerBookmarksProvider" />
+	<remove-project name="LineageOS/android_packages_screensavers_Basic" />
+	<remove-project name="LineageOS/android_packages_screensavers_PhotoTable" />
+	<remove-project name="LineageOS/android_prebuilts_gcc_darwin-x86_aarch64_aarch64-linux-android-4.9" />
+	<remove-project name="LineageOS/android_prebuilts_gcc_darwin-x86_arm_arm-linux-androideabi-4.9" />
+	<remove-project name="LineageOS/ansible" optional="true" />
+	<remove-project name="LineageOS/charter" optional="true" />
+	<remove-project name="LineageOS/cm_crowdin" optional="true" />
+	<remove-project name="LineageOS/contributors-cloud-generator" optional="true" />
+	<remove-project name="LineageOS/cve_tracker" optional="true" />
+	<remove-project name="LineageOS/hudson" optional="true" />
+	<remove-project name="LineageOS/lineage_wiki" optional="true" />
+	<remove-project name="LineageOS/mirror" optional="true" />
+	<remove-project name="LineageOS/scripts" optional="true" />
+	<remove-project name="LineageOS/slackbot" optional="true" />
+	<remove-project name="LineageOS/www" optional="true" />
+	<remove-project name="platform/external/iperf3" />
+	<remove-project name="platform/external/tcpdump" />
+	<remove-project name="platform/external/virglrenderer" />
+	<remove-project name="platform/external/wayland" />
+	<remove-project name="platform/external/wayland-protocols" />
+	<remove-project name="platform/packages/apps/SampleLocationAttribution" />
+	<remove-project name="platform/prebuilts/clang/host/darwin-x86" />
+	<remove-project name="platform/prebuilts/fuchsia_sdk" />
+	<remove-project name="platform/prebuilts/gcc/darwin-x86/host/i686-apple-darwin-4.2.1" />
+	<remove-project name="platform/prebuilts/gcc/darwin-x86/x86/x86_64-linux-android-4.9" />
+	<remove-project name="platform/prebuilts/gdb/darwin-x86" />
+	<remove-project name="platform/prebuilts/go/darwin-x86" />
+	<remove-project name="platform/prebuilts/python/darwin-x86/2.7.5" />
+	<remove-project name="platform/prebuilts/qemu-kernel" />
+
+	<!-- Switch to the AOSmium WebView -->
+	<remove-project name="LineageOS/android_external_chromium-webview" optional="true" />
+<!-- END OF UNNECESSARY REPO REMOVAL -->
+
+<!-- START OF BRANCH SWITCHING -->
+	<!-- use newer branches -->
+	<remove-project name="platform/external/webp" optional="true" />
+	<!-- PORGLUT: base LOS-17.1 defines the same path under the LOS name; remove so the hardened fork is single-sourced -->
+	<remove-project name="LineageOS/android_external_webp" optional="true" />
+	<project path="external/webp" name="android_external_webp" remote="los" revision="lineage-18.1" />
+<!-- END OF BRANCH SWITCHING -->
+
+<!-- START OF ADDITIONAL REPOS -->
+	<project path="external/svox" name="platform/external/svox" groups="pdk" remote="aosp" revision="master" />
+        <!-- GrapheneOS -->
+        <project path="external/hardened_malloc" name="hardened_malloc" remote="gos" revision="refs/tags/13" />
+
+<!-- END OF ADDITIONAL REPOS -->
+
+<!-- START OF AXP.OS REPOS -->
+
+	<!-- AXP.OS vendor -->
+        <project path="vendor/axp" name="vendor_axp" remote="axp.os" revision="main" />
+        <!-- vendor/firmware repo - !not shared public! -->
+        <project path="vendor/firmware" name="vendor_firmware" remote="axp.os-private" />
+        <!-- extendrom -->
+        <project path="vendor/extendrom" name="android_vendor_extendrom" remote="sfX" revision="main" />
+        <!-- build tools -->
+        <project path="external/buildtools" name="android_buildtools" remote="sfX" revision="main" />
+        <!-- WireGuard VPN -->
+        <project remote="zx2c4" name="wireguard-linux-compat" path="kernel/wireguard-linux-compat" sync-s="true" />
+	<!-- CVE Kernel patcher -->
+	<project path="external/cve_kernel_patches" name="kernel_patches" remote="aos-mirror" revision="main" />
+	<!-- AOS versioning -->
+	<project path="external/axp_versioning" name="axp_versioning" remote="axp.os-private" revision="main" />
+
+	<!-- "non-existent" divestOS - only repos.
+	     the folders get created and filled on-the-fly during build by the divest scripts.
+	     in order to do reproducible builds they are created and tracked here
+	-->
+	<project path="vendor/divested" name="vendor_divested" remote="axp.os-private" revision="main" />
+	<project path="vendor/divested-carriersettings" name="vendor_divested-carriersettings" remote="axp.os-private" revision="main" />
+
+<!-- END OF AXP.OS REPOS -->
+
+<!-- START OF DEVICE REPOS -->
+        <!--
+          Currently unsupported devices can be added from here:
+          https://github.com/Divested-Mobile/DivestOS-Build/blob/master/Manifests/Manifest_LAOS-17.1.xml 
+        -->
+	
+        <!-- Common -->
+	<project path="system/qcom" name="android_system_qcom" remote="los" />
+	<project path="external/bson" name="android_external_bson" remote="los" />
+	<project path="external/sony/boringssl-compat" name="android_external_sony_boringssl-compat" remote="los" />
+	<project path="hardware/sony/thermanager" name="android_hardware_sony_thermanager" remote="los" />
+	<project path="hardware/sony/timekeep" name="android_hardware_sony_timekeep" remote="los" />
+	<project name="hardware_samsung" path="hardware/samsung" remote="axp.os" />
+
+        <!-- Common Proprietary Blobs -->
+	<project name="vendor_samsung_universal7870-common" path="vendor/samsung/universal7870-common" remote="axp.os" />
+	
+        <!-- Samsung J5 (j5y17lte) -->
+        <project name="device_samsung_j5y17lte" path="device/samsung/j5y17lte" remote="axp.os" />
+        <project name="device_samsung_exynos7870-common" path="device/samsung/universal7870-common"  remote="axp.os" />
+        <project name="android_kernel_samsung_exynos7870" path="kernel/samsung/exynos7870" remote="axp.os_kernel" />
+	<project name="vendor_samsung_j5y17lte" path="vendor/samsung/j5y17lte" remote="axp.os" />
+
+<!-- END OF DEVICE REPOS -->
+      
+</manifest>

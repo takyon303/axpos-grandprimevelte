@@ -1,0 +1,26 @@
+# Cloned upstream trees (read-only references)
+upstream/
+
+# Firmware stock tars / extracted images (large binary artifacts)
+firmware/
+*.tar
+*.tar.md5
+*.img
+*.img.ext4
+*.win.md5
+
+# Build artifacts + caches
+out/
+*.o
+*.so
+.cache/
+ccache/
+
+# Editor / OS cruft
+*~
+*.swp
+.DS_Store
+Thumbs.db
+
+# Docs stay local (user call 2026-10-22)
+docs/
