@@ -1,0 +1,19 @@
+diff --git a/config/BoardConfigKernel.mk b/config/BoardConfigKernel.mk
+index 43154d49..c22427e4 100644
+--- a/config/BoardConfigKernel.mk
++++ b/config/BoardConfigKernel.mk
+@@ -89,8 +89,14 @@ ifneq ($(USE_CCACHE),)
+     endif
+ endif
+ 
++# era-fix (grandprimevelte port): upstream 17.1 hardcodes a SPACE after
++# "$(CCACHE_BIN)" — with no ccache (CCACHE_BIN empty) the kernel compiler
++# prefix starts with whitespace → bash "No such file or directory"/"Command
++# not found". Only embed the prefix when the ccache binary actually exists.
+ ifeq ($(TARGET_KERNEL_CLANG_COMPILE),true)
+     KERNEL_CROSS_COMPILE := CROSS_COMPILE="$(KERNEL_TOOLCHAIN_PATH)"
++else ifeq ($(strip $(CCACHE_BIN)),)
++    KERNEL_CROSS_COMPILE := CROSS_COMPILE="$(KERNEL_TOOLCHAIN_PATH)"
+ else
+     KERNEL_CROSS_COMPILE := CROSS_COMPILE="$(CCACHE_BIN) $(KERNEL_TOOLCHAIN_PATH)"
+ endif

@@ -33,4 +33,12 @@ if git -C "$W/device/samsung/mrvl-common" diff --quiet 2>/dev/null; then
   git -C "$W/device/samsung/mrvl-common" apply "$P/mrvl-common-boardconfig-q-mkbootimg.diff"
   echo "applied: mrvl-common boardconfig"
 fi
+# 5) vendor/lineage/config/BoardConfigKernel.mk: drop the hardcoded space in
+#    non-clang KERNEL_CROSS_COMPILE when CCACHE_BIN is empty (upstream 17.1
+#    bug: leading whitespace lands in the kernel compiler prefix → bash
+#    "No such file or directory"); pinned tree → workspace patch
+if git -C "$W/vendor/lineage" diff --quiet 2>/dev/null; then
+  git -C "$W/vendor/lineage" apply "$P/lineage-kernel-ccache-space.diff"
+  echo "applied: lineage kernel ccache space fix"
+fi
 echo done
