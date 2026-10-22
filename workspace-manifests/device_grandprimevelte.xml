@@ -36,7 +36,7 @@
              remote="github" revision="5906535422762fb5adb20c6ba00d047c61e557e8" />
 
     <!-- Marvell boot image glue: custom mkbootimg + PXA dtbtool + mkimage
-         (BOARD_CUSTOM_BOOTIMG_MK target; --seandroidenforce support).
+         (the BOARD_CUSTOM_BOOTIMG_MK target, with seandroidenforce support).
          Pinned at the seandroidenforce/dtbtool rewrite commit. -->
     <project path="hardware/marvell/bootimage"
              name="Nemirtingas/android_hardware_marvell_bootimage"
