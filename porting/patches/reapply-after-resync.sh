@@ -33,6 +33,14 @@ if git -C "$W/device/samsung/mrvl-common" diff --quiet 2>/dev/null; then
   git -C "$W/device/samsung/mrvl-common" apply "$P/mrvl-common-boardconfig-q-mkbootimg.diff"
   echo "applied: mrvl-common boardconfig"
 fi
+# 6) vendor/lineage/config/BoardConfigKernel.mk: drop HOST CPATH from kernel
+#    make flags (GCC honors CPATH → host x86_64 headers leak into arm64 cross
+#    compile; lib/raid6 neon1.c failed on gnu/stubs-32.h); pinned tree
+if git -C "$W/vendor/lineage" diff --quiet 2>/dev/null; then
+  git -C "$W/vendor/lineage" apply "$P/lineage-kernel-cpath-stub.diff"
+  echo "applied: lineage kernel cpath strip"
+fi
+
 # 5) vendor/lineage/config/BoardConfigKernel.mk: drop the hardcoded space in
 #    non-clang KERNEL_CROSS_COMPILE when CCACHE_BIN is empty (upstream 17.1
 #    bug: leading whitespace lands in the kernel compiler prefix → bash

@@ -1,0 +1,33 @@
+diff --git a/config/BoardConfigKernel.mk b/config/BoardConfigKernel.mk
+index 43154d49..3d9cf564 100644
+--- a/config/BoardConfigKernel.mk
++++ b/config/BoardConfigKernel.mk
+@@ -89,8 +89,14 @@ ifneq ($(USE_CCACHE),)
+     endif
+ endif
+ 
++# era-fix (grandprimevelte port): upstream 17.1 hardcodes a SPACE after
++# "$(CCACHE_BIN)" — with no ccache (CCACHE_BIN empty) the kernel compiler
++# prefix starts with whitespace → bash "No such file or directory"/"Command
++# not found". Only embed the prefix when the ccache binary actually exists.
+ ifeq ($(TARGET_KERNEL_CLANG_COMPILE),true)
+     KERNEL_CROSS_COMPILE := CROSS_COMPILE="$(KERNEL_TOOLCHAIN_PATH)"
++else ifeq ($(strip $(CCACHE_BIN)),)
++    KERNEL_CROSS_COMPILE := CROSS_COMPILE="$(KERNEL_TOOLCHAIN_PATH)"
+ else
+     KERNEL_CROSS_COMPILE := CROSS_COMPILE="$(CCACHE_BIN) $(KERNEL_TOOLCHAIN_PATH)"
+ endif
+@@ -119,7 +125,12 @@ endif
+ ifeq ($(HOST_OS),darwin)
+   KERNEL_MAKE_FLAGS += HOSTCFLAGS="-I$(BUILD_TOP)/external/elfutils/libelf -I/usr/local/opt/openssl/include -fuse-ld=lld" HOSTLDFLAGS="-L/usr/local/opt/openssl/lib -fuse-ld=lld"
+ else
+-  KERNEL_MAKE_FLAGS += CPATH="/usr/include:/usr/include/x86_64-linux-gnu" HOSTCFLAGS="-fuse-ld=lld" HOSTLDFLAGS="-L/usr/lib/x86_64-linux-gnu -L/usr/lib64 -fuse-ld=lld"
++# era-fix (grandprimevelte port): CPATH pointed at HOST system headers leaks
++# into the kernel CROSS compile (GCC honors CPATH) — arm_neon.h pulled host
++# x86_64 stdint → "gnu/stubs-32.h: No such file or directory" inside
++# lib/raid6/neon1.c. The standalone Stage-4 kernel build succeeded WITHOUT
++# CPATH, so drop it; HOSTCFLAGS/HOSTLDFLAGS (clang-side, -fuse-ld=lld) stay.
++  KERNEL_MAKE_FLAGS += HOSTCFLAGS="-fuse-ld=lld" HOSTLDFLAGS="-L/usr/lib/x86_64-linux-gnu -L/usr/lib64 -fuse-ld=lld"
+ endif
+ 
+ ifneq ($(TARGET_KERNEL_ADDITIONAL_FLAGS),)
