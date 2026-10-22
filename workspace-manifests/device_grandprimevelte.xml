@@ -35,12 +35,12 @@
              name="Nemirtingas/android_hardware_marvell_pxa1908"
              remote="github" revision="5906535422762fb5adb20c6ba00d047c61e557e8" />
 
-    <!-- Marvell boot image glue: custom mkbootimg + PXA dtbtool + mkimage
-         (the BOARD_CUSTOM_BOOTIMG_MK target, with seandroidenforce support).
-         Pinned at the seandroidenforce/dtbtool rewrite commit. -->
+    <!-- Marvell boot image glue: OUR era-upgradable repo
+         (porting/marvell-bootimage.git; custom mkbootimg + PXA dtbtool + mkimage,
+         the BOARD_CUSTOM_BOOTIMG_MK target, with seandroidenforce support).
+         Provenance: Nemirtingas pin 5ffcebf (seandroidenforce/dtbtool rewrite). -->
     <project path="hardware/marvell/bootimage"
-             name="Nemirtingas/android_hardware_marvell_bootimage"
-             remote="github" revision="5ffcebf5f471a1dfaf1e9419b82c81836c41bc4d" />
+             name="marvell-bootimage.git" remote="localport" revision="main" />
 
     <!-- Linux 3.14.27 kernel (stock-matching, armv7 32-bit) -->
     <project path="kernel/samsung/grandprimevelte"

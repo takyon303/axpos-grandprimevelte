@@ -31,3 +31,6 @@ porting/device-tree.git
 
 porting/pxa1908-common-base/
 porting/pxa1908-common.git
+
+porting/marvell-bootimage-base/
+porting/marvell-bootimage.git
