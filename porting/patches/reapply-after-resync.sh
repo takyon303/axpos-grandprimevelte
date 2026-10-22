@@ -33,20 +33,22 @@ if git -C "$W/device/samsung/mrvl-common" diff --quiet 2>/dev/null; then
   git -C "$W/device/samsung/mrvl-common" apply "$P/mrvl-common-boardconfig-q-mkbootimg.diff"
   echo "applied: mrvl-common boardconfig"
 fi
-# 6) vendor/lineage/config/BoardConfigKernel.mk: drop HOST CPATH from kernel
-#    make flags (GCC honors CPATH → host x86_64 headers leak into arm64 cross
-#    compile; lib/raid6 neon1.c failed on gnu/stubs-32.h); pinned tree
-if git -C "$W/vendor/lineage" diff --quiet 2>/dev/null; then
-  git -C "$W/vendor/lineage" apply "$P/lineage-kernel-cpath-stub.diff"
-  echo "applied: lineage kernel cpath strip"
-fi
-
 # 5) vendor/lineage/config/BoardConfigKernel.mk: drop the hardcoded space in
 #    non-clang KERNEL_CROSS_COMPILE when CCACHE_BIN is empty (upstream 17.1
 #    bug: leading whitespace lands in the kernel compiler prefix → bash
-#    "No such file or directory"); pinned tree → workspace patch
-if git -C "$W/vendor/lineage" diff --quiet 2>/dev/null; then
+#    "No such file or directory"); pinned tree → workspace patch.
+#    NOTE: steps 5 and 6 both touch the same file, so the guard is a content
+#    marker, not "tree is clean" (a clean-tree check would skip the second
+#    patch after the first dirties the tree).
+if ! grep -q 'strip $(CCACHE_BIN)' "$W/vendor/lineage/config/BoardConfigKernel.mk" 2>/dev/null; then
   git -C "$W/vendor/lineage" apply "$P/lineage-kernel-ccache-space.diff"
   echo "applied: lineage kernel ccache space fix"
+fi
+# 6) vendor/lineage/config/BoardConfigKernel.mk: drop HOST CPATH from kernel
+#    make flags (GCC honors CPATH → host x86_64 headers leak into arm64 cross
+#    compile; lib/raid6 neon1.c failed on gnu/stubs-32.h); pinned tree
+if ! grep -q 'era-fix (grandprimevelte port): CPATH pointed at HOST' "$W/vendor/lineage/config/BoardConfigKernel.mk" 2>/dev/null; then
+  git -C "$W/vendor/lineage" apply "$P/lineage-kernel-cpath-stub.diff"
+  echo "applied: lineage kernel cpath strip"
 fi
 echo done
