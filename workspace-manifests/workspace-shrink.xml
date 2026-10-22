@@ -49,6 +49,36 @@
     <remove-project name="device_samsung_j5y17lte" />
     <remove-project name="device_samsung_exynos7870-common" />
 
+    <!-- Qualcomm hardware stacks: this port is Marvell (pxa1908); Soong reads
+         every synced .bp regardless of product, and the qcom trees reference
+         HAL interfaces/AOSP trees they don't carry (first failure seen:
+         sm8150 display/vendor.display.config) — an arm-only build should sync
+         none of them. -->
+    <remove-project name="LineageOS/android_hardware_qcom_audio" />
+    <remove-project name="LineageOS/android_hardware_qcom_bootctrl" />
+    <remove-project name="LineageOS/android_hardware_qcom_bt" />
+    <remove-project name="platform/hardware/qcom/camera" />
+    <remove-project name="LineageOS/android_hardware_qcom_data_ipacfg-mgr" />
+    <remove-project name="LineageOS/android_hardware_qcom_display" />
+    <remove-project name="LineageOS/android_hardware_qcom_gps" />
+    <remove-project name="LineageOS/android_hardware_qcom_keymaster" />
+    <remove-project name="LineageOS/android_hardware_qcom_media" />
+    <remove-project name="platform/hardware/qcom/neuralnetworks/hvxservice" />
+    <remove-project name="platform/hardware/qcom/sdm845/bt" />
+    <remove-project name="platform/hardware/qcom/sdm845/data/ipacfg-mgr" />
+    <remove-project name="LineageOS/android_hardware_qcom_sdm845_display" />
+    <remove-project name="platform/hardware/qcom/sdm845/gps" />
+    <remove-project name="platform/hardware/qcom/sdm845/media" />
+    <remove-project name="platform/hardware/qcom/sdm845/thermal" />
+    <remove-project name="platform/hardware/qcom/sdm845/vr" />
+    <remove-project name="LineageOS/android_hardware_qcom_sm8150_data_ipacfg-mgr" />
+    <remove-project name="LineageOS/android_hardware_qcom_sm8150_display" />
+    <remove-project name="platform/hardware/qcom/sm8150/gps" />
+    <remove-project name="LineageOS/android_hardware_qcom_sm8150_media" />
+    <remove-project name="platform/hardware/qcom/sm8150/thermal" />
+    <remove-project name="platform/hardware/qcom/sm8150/vr" />
+    <remove-project name="platform/hardware/qcom/wlan" />
+
     <!-- Private AXP repos — ssh-only remote, need AXP credentials + git-lfs;
          our port self-extracts firmware, and versioning is maintainer meta -->
     <remove-project name="vendor_firmware" />
