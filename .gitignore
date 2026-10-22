@@ -28,3 +28,6 @@ docs/
 # Device tree works as its own repo (bare: porting/device-tree.git)
 porting/device-tree-base/
 porting/device-tree.git
+
+porting/pxa1908-common-base/
+porting/pxa1908-common.git

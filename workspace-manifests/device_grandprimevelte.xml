@@ -18,10 +18,12 @@
     <project path="device/samsung/grandprimevelte"
              name="device-tree.git" remote="localport" revision="main" />
 
-    <!-- Marvell PXA1908 SoC common tree -->
+    <!-- Marvell PXA1908 SoC common tree: OUR era-upgradable repo
+         (porting/pxa1908-common.git), identical flow to device-tree.git
+         (DEC-022/DEC-024). Replaces the Nemirtingas/l14 sync. -->
+    <remove-project name="Nemirtingas/android_device_samsung_pxa1908-common" />
     <project path="device/samsung/pxa1908-common"
-             name="Nemirtingas/android_device_samsung_pxa1908-common"
-             remote="github" revision="e51c0acf4a93753f355726bbc89e497ea4fb2bee" />
+             name="pxa1908-common.git" remote="localport" revision="main" />
 
     <!-- Marvell modem/RIL common tree -->
     <project path="device/samsung/mrvl-common"
