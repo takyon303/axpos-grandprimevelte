@@ -6,7 +6,7 @@ Target: **AXP.OS Slim** (Android 10, `axp-a10` = LineageOS 17.1 base) with the p
 hardening and CVE-fixing pipeline.
 
 Device highlights: Marvell PXA1908 SoC, 1 GB RAM, Vivante GC7000UL GPU,
-Marvell SDIO8777 Wi-Fi/BT, no system-as-root, kernel 3.14.27 (32-bit ARM).
+Marvell SDIO8777 Wi-Fi/BT, no system-as-root, kernel 3.14.27 (Marvell "helanx" platform).
 
 ## What this repository contains
 
