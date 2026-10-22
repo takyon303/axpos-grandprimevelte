@@ -24,3 +24,7 @@ Thumbs.db
 
 # Docs stay local (user call 2026-10-22)
 docs/
+
+# Device tree works as its own repo (bare: porting/device-tree.git)
+porting/device-tree-base/
+porting/device-tree.git
