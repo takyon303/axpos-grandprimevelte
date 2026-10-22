@@ -41,6 +41,14 @@
     <remove-project name="vendor_samsung_j5y17lte" />
     <remove-project name="vendor_samsung_universal7870-common" />
 
+    <!-- Reference device trees of OTHER (non-port) devices: axp.xml adds
+         j5y17lte + exynos7870-common as AXP reference devices; ours is a
+         standalone LOS-17.1 product and their l13-era .bp modules (e.g. their
+         own gatekeeperd) collide with the AOSP-system ones Soong reads anyway.
+         Vendor blobs for these devices were already removed above. -->
+    <remove-project name="device_samsung_j5y17lte" />
+    <remove-project name="device_samsung_exynos7870-common" />
+
     <!-- Private AXP repos — ssh-only remote, need AXP credentials + git-lfs;
          our port self-extracts firmware, and versioning is maintainer meta -->
     <remove-project name="vendor_firmware" />
