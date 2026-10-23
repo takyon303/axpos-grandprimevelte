@@ -1,0 +1,23 @@
+diff --git a/legacy-common/public/legacy-camera-hal1/mediaserver.te b/legacy-common/public/legacy-camera-hal1/mediaserver.te
+index ffd5c57..66ced16 100644
+--- a/legacy-common/public/legacy-camera-hal1/mediaserver.te
++++ b/legacy-common/public/legacy-camera-hal1/mediaserver.te
+@@ -1,8 +1,14 @@
+ # Legacy camera HAL1
+-add_service(mediaserver, cameraserver_service)
+-add_hwservice(mediaserver, fwk_camera_hwservice)
+-
++# era (2026-10-23, grandprimevelte port): the mediaserver add_service/
++# add_hwservice grants each embed a neverallow reserving those service adds
++# for mediaserver — but in Q the CAMERASERVER domain adds
++# cameraserver_service/fwk_camera (system/sepolicy/public/cameraserver.te),
++# so the two coexist → cameraserver's legit add violates the legacy reserved
++# neverallow (8 neverallow failures, wall #35). In Q the HAL1 build runs
++# in-process inside cameraserver, which ships its own grants; the mediaserver
++# proxies are legacy-only. Trimmed to find-only grants that don't conflict:
++# (cameraproxy_service/sensor_privacy_service finds kept; hal_camera hwservice
++# find removed — mediaserver is not a hal_camera client in Q).
+ allow mediaserver { cameraproxy_service sensor_privacy_service }:service_manager find;
+-allow mediaserver hal_camera_hwservice:hwservice_manager find;
+ 
+ hal_client_domain(mediaserver, hal_lineage_camera_motor)

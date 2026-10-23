@@ -51,4 +51,11 @@ if ! grep -q 'era-fix (grandprimevelte port): CPATH pointed at HOST' "$W/vendor/
   git -C "$W/vendor/lineage" apply "$P/lineage-kernel-cpath-stub.diff"
   echo "applied: lineage kernel cpath strip"
 fi
+# 7) device/lineage/sepolicy: Q-era trim of legacy-camera-hal1 mediaserver.te
+#    (HAL1 add-grants collide with Q cameraserver's own add_service/add_hwservice
+#    neverallow reservations → 8 neverallow failures, wall #35); pinned tree
+if ! grep -q "era (2026-10-23, grandprimevelte port)" "$W/device/lineage/sepolicy/legacy-common/public/legacy-camera-hal1/mediaserver.te" 2>/dev/null; then
+  git -C "$W/device/lineage/sepolicy" apply "$P/lineage-sepolicy-camera-hal1-q.diff"
+  echo "applied: lineage legacy-camera-hal1 Q trim"
+fi
 echo done
