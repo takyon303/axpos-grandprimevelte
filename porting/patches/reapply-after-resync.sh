@@ -60,11 +60,10 @@ if ! grep -q "era (2026-10-23, grandprimevelte port)" "$W/device/lineage/sepolic
 fi
 # 8) system/sepolicy/private/domain.te: at_distributor + rtcc into the
 #    dac_override_allowed exemption list (stock-lifted capability users; m4
-#    macro cannot be opted into from device policy; neverallow otherwise
-#    rejects the fix.te grants, wall #35); pinned tree marker-guarded (the
-#    comment header we add is the marker)
-if ! grep -q "grandprimevelte port): at_distributor and rtcc added" "$W/system/sepolicy/private/domain.te" 2>/dev/null; then
-  git -C "$W/system/sepolicy" apply "$P/lineage-system-sepolicy-dac.diff"
-  echo "applied: system sepolicy dac_override_allowed opt-in"
-fi
+# 8) (RETIRED 2026-10-25, wall #39): the system/sepolicy device.te
+#    dac_override_allowed domain-list patch is gone — Android 10's CIL stage
+#    compiles PLATFORM policy alone and hard-references types from that macro
+#    list, so platform files must stay pure. at_distributor runs permissive
+#    instead (pxa1908-common sepolicy). Do NOT reintroduce platform patches
+#    that name device types.
 echo done
