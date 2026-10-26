@@ -78,4 +78,16 @@ fi
 if [ -f "$W/lineage-sdk/sdk/src/java/org/lineageos/internal/util/TelephonyExtUtils.java" ]; then
   rm -f "$W/lineage-sdk/sdk/src/java/org/lineageos/internal/util/TelephonyExtUtils.java" && echo "removed: TelephonyExtUtils.java"
 fi
+# 9) kernel/samsung/grandprimevelte: Android Q first-stage fstab node in the
+#    board DTS (wall #47). First-stage init gets its fstab from the DT
+#    android,fstab node because the bootloader argv has no androidboot.hardware
+#    and first stage loads no default.prop. Copy-lane (not a diff) so context
+#    drift never breaks it; both board revisions (.dts -00 and -01) shipped.
+K="$W/kernel/samsung/grandprimevelte/arch/arm64/boot/dts"
+for rev in 00 01; do
+  if ! cmp -s "$P/kernel/pxa1908-grandprimevelte-$rev.dts" "$K/pxa1908-grandprimevelte-$rev.dts"; then
+    cp "$P/kernel/vette/pxa1908-grandprimevelte-$rev.dts" "$K/pxa1908-grandprimevelte-$rev.dts"
+    echo "applied: kernel dt fstab (grandprimevelte-$rev)"
+  fi
+done
 echo done
