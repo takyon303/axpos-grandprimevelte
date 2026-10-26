@@ -85,7 +85,7 @@ fi
 #    drift never breaks it; both board revisions (.dts -00 and -01) shipped.
 K="$W/kernel/samsung/grandprimevelte/arch/arm64/boot/dts"
 for rev in 00 01; do
-  if ! cmp -s "$P/kernel/pxa1908-grandprimevelte-$rev.dts" "$K/pxa1908-grandprimevelte-$rev.dts"; then
+  if ! cmp -s "$P/kernel/vette/pxa1908-grandprimevelte-$rev.dts" "$K/pxa1908-grandprimevelte-$rev.dts"; then
     cp "$P/kernel/vette/pxa1908-grandprimevelte-$rev.dts" "$K/pxa1908-grandprimevelte-$rev.dts"
     echo "applied: kernel dt fstab (grandprimevelte-$rev)"
   fi

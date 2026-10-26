@@ -1774,18 +1774,20 @@
  * the DT path); /data and the rest keep coming from fstab.pxa1908 via the
  * second-stage `mount_all` in init.pxa1908.rc.
  */
-firmware {
-	android {
-		fstab {
-			compatible = "android,fstab";
-			status = "ok";
-			system {
+/ {
+	firmware {
+		android {
+			fstab {
+				compatible = "android,fstab";
 				status = "ok";
-				dev = "/dev/block/platform/soc.2/by-name/SYSTEM";
-				type = "ext4";
-				mnt_point = "/system";
-				mnt_flags = "ro,errors=panic";
-				fsmgr_flags = "wait";
+				system {
+					status = "ok";
+					dev = "/dev/block/platform/soc.2/by-name/SYSTEM";
+					type = "ext4";
+					mnt_point = "/system";
+					mnt_flags = "ro,errors=panic";
+					fsmgr_flags = "wait";
+				};
 			};
 		};
 	};
