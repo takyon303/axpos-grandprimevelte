@@ -66,4 +66,16 @@ fi
 #    list, so platform files must stay pure. at_distributor runs permissive
 #    instead (pxa1908-common sepolicy). Do NOT reintroduce platform patches
 #    that name device types.
+# 8) lineage-sdk: drop the Qualcomm-only telephony-ext wiring (era 2026-10-23+).
+#    The org.codeaurora.internal AIDL provider repo is not manifested for this
+#    port, and `telephony-ext` exists nowhere in the build — the static-lib
+#    references (lineage-sdk-telephony-ext.diff) plus the one orphaned caller
+#    (TelephonyExtUtils.java, zero consumers in the entire tree) have to go
+#    together or the sdk jar fails analysis, then the turbine symbol pass.
+if grep -q "telephony-ext" "$W/lineage-sdk/Android.bp" 2>/dev/null; then
+  git -C "$W/lineage-sdk" apply "$P/lineage-sdk-telephony-ext.diff" && echo "applied: lineage-sdk telephony-ext unlink"
+fi
+if [ -f "$W/lineage-sdk/sdk/src/java/org/lineageos/internal/util/TelephonyExtUtils.java" ]; then
+  rm -f "$W/lineage-sdk/sdk/src/java/org/lineageos/internal/util/TelephonyExtUtils.java" && echo "removed: TelephonyExtUtils.java"
+fi
 echo done
