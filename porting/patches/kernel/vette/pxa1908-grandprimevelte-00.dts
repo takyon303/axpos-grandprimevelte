@@ -1767,6 +1767,7 @@
 /include/ "mmp-dsi-panel-hx8389c-cpt-qHD-video.dtsi"
 /include/ "mmp-dsi-panel-s6d78a0-boe6-qHD-video.dtsi"
 
+
 /* Wall #47: Android first-stage fstab (Q). Provided via DT because the
  * Samsung bootloader argv carries no androidboot.hardware and first-stage
  * init loads no_default.prop. Only /system is listed: with a DT fstab,
@@ -1789,6 +1790,30 @@
 					fsmgr_flags = "wait";
 				};
 			};
+		};
+	};
+};
+
+/* Wall #47 companion: pstore/ramoops reserve (CONFIG_PSTORE=y,
+ * PSPSTORE_RAM=y) for ROM-side death forensics. Address picked against the
+ * stock kernel's hardcoded reserves (CP 48MB @0x05000000, GPU 16MB
+ * @0x09000000, CM3 512KB @0x0a000000, crashkernel 4k @0x08FFEC00) and clear
+ * of them. no-map keeps any kernel from using the page range; the ramoops
+ * driver maps it at probe. Same DTB ships in boot.img AND recovery.img, so
+ * a warm-reboot chain honors the same region on both sides. */
+/ {
+	reserved-memory {
+		#address-cells = <2>;
+		#size-cells = <1>;
+		ranges;
+		ramoops@0b000000 {
+			compatible = "ramoops";
+			reg = <0x0 0x0b000000 0x00400000>;
+			no-map;
+			record-size = <0x20000>;
+			console-size = <0x80000>;
+			ftrace-size = <0>;
+			pmsg-size = <0>;
 		};
 	};
 };
