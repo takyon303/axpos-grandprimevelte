@@ -1777,6 +1777,7 @@
  */
 / {
 	firmware {
+		compatible = "android,firmware";
 		android {
 			fstab {
 				compatible = "android,fstab";
