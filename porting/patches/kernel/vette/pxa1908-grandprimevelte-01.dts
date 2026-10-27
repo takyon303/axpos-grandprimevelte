@@ -1783,7 +1783,7 @@
 				status = "ok";
 				system {
 					status = "ok";
-					dev = "/dev/block/platform/soc.2/by-name/SYSTEM";
+					dev = "/dev/block/mmcblk0p16";
 					type = "ext4";
 					mnt_point = "/system";
 					mnt_flags = "ro,errors=panic";
